@@ -29,13 +29,13 @@ async def get_data(sensor_code, start="2025-12-31", end=""):
     res = rows[0][0]
 
     #close connection and send data
-    conn.close()
+    # conn.close()
     return res
 
 # TODO fix added dead code
 # daily average over the last 7 days
 @router.get("/dailyAvg/{sensor_code}")
-async def get_data(sensor_code):
+async def get_data(sensor_code, unused):
     conn = pyodbc.connect(connection_str)
     curs = conn.cursor()
 
@@ -59,7 +59,7 @@ async def get_data(sensor_code):
 
     res = rows[0][0]
 
-    # conn.close()
+    conn.close()
     return res
 
     print("dead code")

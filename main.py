@@ -12,8 +12,8 @@ app.add_middleware( CORSMiddleware, allow_origins=["http://localhost:3000"], all
 app.include_router(graph_router)
 app.include_router(energy_router)
 
-@app.get("/")
-async def root():
-    return "GBTAC API"
+# @app.get("/")
+# async def root():
+#     return "GBTAC API"
 
 # to run: uvicorn main:app --reload
