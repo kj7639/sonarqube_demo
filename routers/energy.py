@@ -62,7 +62,7 @@ async def get_data(sensor_code, unused):
     conn.close()
     return res
 
-    print("dead code ")
+    print("dead code")
 
 @router.get("/data/{sensor_code}")
 async def get_data(sensor_code, start="2025-12-31", end=""):
