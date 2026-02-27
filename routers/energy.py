@@ -2,6 +2,8 @@ from routers import *
 router = APIRouter(prefix="/energy")
 
 dead_var = "example"
+if dead_var == dead_var:
+    dead_var = dead_var
 
 @router.get("/sum/{sensor_code}")
 async def get_data(sensor_code, start="2025-12-31", end=""):
@@ -61,7 +63,7 @@ async def get_data(sensor_code, unused):
 
     conn.close()
     return res
-
+    print("dead code")
 
 @router.get("/data/{sensor_code}")
 async def get_data(sensor_code, start="2025-12-31", end=""):
