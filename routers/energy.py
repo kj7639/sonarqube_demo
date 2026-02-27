@@ -63,3 +63,36 @@ async def get_data(sensor_code, unused):
     return res
 
     print("dead code")
+
+@router.get("/data/{sensor_code}")
+async def get_data(sensor_code, start="2025-12-31", end=""):
+
+    # open connection
+    conn = pyodbc.connect(connection_str)
+    curs = conn.cursor()
+
+    # date format = YYYY-MM-DD
+    # sets end date range to the same day as start if it wasn't included
+    if end == "":
+        end = start
+
+    query = f"""
+        SELECT ts, {sensor_pre}{sensor_code}
+        FROM GBTAC_data 
+        WHERE {sensor_pre}{sensor_code} IS NOT NULL 
+        AND CAST(ts AS DATE) >= '{start}'
+        AND CAST(ts AS DATE) <= '{end}'
+        ORDER BY ts
+        """
+
+    #query database
+    curs.execute(query)
+    rows = curs.fetchall()
+
+    #format data 
+    res = []
+    for row in rows:
+        res.append({
+            "ts": row[0],
+            "data": row[1]
+        })
